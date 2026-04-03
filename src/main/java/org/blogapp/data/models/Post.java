@@ -16,8 +16,8 @@ public class Post {
     private String title;
     private String content;
     private String userId;
-    private int comments;
-    private int likes;
-    private int views;
+    private int comments = 0;
+    private int likes = 0;
+    private int views = 0;
 
 }
