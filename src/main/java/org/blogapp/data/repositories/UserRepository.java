@@ -1,4 +1,11 @@
 package org.blogapp.data.repositories;
 
-public class UserRepository {
+import org.blogapp.data.models.User;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface UserRepository extends MongoRepository<User, String> {
+    User findByEmail(String emailAddress);
+    boolean existByEmail(User user);
 }
