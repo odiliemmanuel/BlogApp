@@ -7,7 +7,7 @@ public class PostRequest {
 
     private String title;
     private String content;
-    private String userId;
+    private String postId;
     private int comments = 0;
     private int likes = 0;
     private int views = 0;
