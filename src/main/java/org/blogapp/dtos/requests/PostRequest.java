@@ -11,4 +11,5 @@ public class PostRequest {
     private int comments = 0;
     private int likes = 0;
     private int views = 0;
+
 }

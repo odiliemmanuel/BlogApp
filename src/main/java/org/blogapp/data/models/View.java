@@ -14,4 +14,5 @@ public class View {
     private String userId;
     private String postId;
     private String viewedAt = String.valueOf(LocalDateTime.now());
+    private String message;
 }
