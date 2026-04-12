@@ -7,6 +7,7 @@ public class UserSignUpRequest {
 
     String firstName;
     String lastName;
+    String userName;
     String emailAddress;
     String phoneNumber;
     String password;
