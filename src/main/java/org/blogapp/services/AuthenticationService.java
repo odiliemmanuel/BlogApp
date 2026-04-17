@@ -23,7 +23,12 @@ public class AuthenticationService {
             throw new UserAlreadyExistsException(Messages.USER_ALREADY_EXISTS_EXCEPTION);
         }
         else{
-
+            userRepository.save(user);
+            return Mapper.mapUserToSignUpResponse(user);
         }
     }
+
+
+
+
 }
