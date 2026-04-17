@@ -2,7 +2,9 @@ package org.blogapp.services;
 
 import org.blogapp.data.models.User;
 import org.blogapp.data.repositories.UserRepository;
+import org.blogapp.dtos.requests.UserLoginRequest;
 import org.blogapp.dtos.requests.UserSignUpRequest;
+import org.blogapp.dtos.responses.UserLoginResponse;
 import org.blogapp.dtos.responses.UserSignUpResponse;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.UserAlreadyExistsException;
@@ -26,6 +28,11 @@ public class AuthenticationService {
             userRepository.save(user);
             return Mapper.mapUserToSignUpResponse(user);
         }
+    }
+
+
+    public UserLoginResponse logIn(UserLoginRequest userLoginRequest){
+
     }
 
 
