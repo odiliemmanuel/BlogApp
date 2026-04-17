@@ -11,6 +11,6 @@ public class UserSignUpRequest {
     String emailAddress;
     String phoneNumber;
     String password;
-    String confirmPassword;
+
 
 }

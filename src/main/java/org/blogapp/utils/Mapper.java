@@ -11,6 +11,9 @@ public class Mapper {
         user.setFirstName(userSignUpRequest.getFirstName());
         user.setLastName(userSignUpRequest.getLastName());
         user.setPhoneNumber(userSignUpRequest.getPhoneNumber());
-        user.se
+        user.setUsername(userSignUpRequest.getUserName());
+        user.setEmailAddress(userSignUpRequest.getEmailAddress());
+        user.setPassword(userSignUpRequest.getPassword());
+        return user;
     }
 }
