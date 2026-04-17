@@ -9,16 +9,25 @@ public class Mapper {
 
     public static User mapUserSignUpRequestToUser(UserSignUpRequest userSignUpRequest){
         User user = new User();
+
         user.setFirstName(userSignUpRequest.getFirstName());
         user.setLastName(userSignUpRequest.getLastName());
         user.setPhoneNumber(userSignUpRequest.getPhoneNumber());
         user.setUsername(userSignUpRequest.getUserName());
         user.setEmailAddress(userSignUpRequest.getEmailAddress());
         user.setPassword(userSignUpRequest.getPassword());
+
         return user;
     }
 
     public static UserSignUpResponse mapUserToSignUpResponse(User user){
+        UserSignUpResponse userSignUpResponse = new UserSignUpResponse();
 
+        userSignUpResponse.setUsername(user.getUsername());
+        userSignUpResponse.setPhoneNumber(user.getPhoneNumber());
+        userSignUpResponse.setMessage("Welcome to FlashCorp Blog App " + user.getUsername());
+
+        return userSignUpResponse;
     }
 }
+
