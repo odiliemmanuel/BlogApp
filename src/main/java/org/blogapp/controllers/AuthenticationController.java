@@ -1,11 +1,15 @@
 package org.blogapp.controllers;
 
+import org.blogapp.dtos.requests.UserLoginRequest;
 import org.blogapp.dtos.requests.UserSignUpRequest;
 import org.blogapp.exceptions.UserAlreadyExistsException;
+import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,6 +21,7 @@ public class AuthenticationController {
     public AuthenticationService authenticationService;
 
 
+    @PostMapping("/sign-up")
     public ResponseEntity<?> signUp(UserSignUpRequest userSignUpRequest){
         try{
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(authenticationService.signUp(userSignUpRequest));
@@ -25,5 +30,15 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
         }
 
+    }
+
+    @GetMapping
+    public ResponseEntity<?> login(UserLoginRequest userLoginRequest){
+        try{
+            return ResponseEntity.status(HttpStatus.FOUND).body(authenticationService.logIn(userLoginRequest));
+        }
+        catch(UserDoesNotExistException error){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
+        }
     }
 }
