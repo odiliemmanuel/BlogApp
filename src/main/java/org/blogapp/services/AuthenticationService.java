@@ -8,6 +8,7 @@ import org.blogapp.dtos.responses.UserLoginResponse;
 import org.blogapp.dtos.responses.UserSignUpResponse;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.UserAlreadyExistsException;
+import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.utils.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,7 +33,11 @@ public class AuthenticationService {
 
 
     public UserLoginResponse logIn(UserLoginRequest userLoginRequest){
+        User user = userRepository.findByEmail(userLoginRequest.getEmailAddress());
 
+        if(!user.getEmailAddress().equals(userLoginRequest.getEmailAddress()) && !user.getPassword().equals(userLoginRequest.getPassword())){
+            throw new UserDoesNotExistException(Messages.)
+        }
     }
 
 
