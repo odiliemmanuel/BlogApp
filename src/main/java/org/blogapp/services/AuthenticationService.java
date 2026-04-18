@@ -36,7 +36,10 @@ public class AuthenticationService {
         User user = userRepository.findByEmail(userLoginRequest.getEmailAddress());
 
         if(!user.getEmailAddress().equals(userLoginRequest.getEmailAddress()) && !user.getPassword().equals(userLoginRequest.getPassword())){
-            throw new UserDoesNotExistException(Messages.)
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+        else{
+            return Mapper.
         }
     }
 
