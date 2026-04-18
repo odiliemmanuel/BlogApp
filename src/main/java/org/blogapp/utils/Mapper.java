@@ -33,7 +33,19 @@ public class Mapper {
 
 
     public static UserLoginResponse mapUserLoginResponseToUser(User user){
+        UserLoginResponse userLoginResponse = new UserLoginResponse();
 
+        userLoginResponse.setUsername(user.getUsername());
+        userLoginResponse.setFirstName(user.getFirstName());
+        userLoginResponse.setPhoneNumber(user.getPhoneNumber());
+        userLoginResponse.setMessage("Welcome back " + user.getUsername());
+
+        return  userLoginResponse;
     }
+
+//    String username;
+//    String firstName;
+//    String phoneNumber;
+//    String message;
 }
 
