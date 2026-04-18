@@ -39,7 +39,7 @@ public class AuthenticationService {
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
         else{
-            return Mapper.
+            return Mapper.mapUserLoginResponseToUser(user);
         }
     }
 
