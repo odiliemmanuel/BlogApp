@@ -2,6 +2,7 @@ package org.blogapp.utils;
 
 import org.blogapp.data.models.Post;
 import org.blogapp.dtos.requests.NewPostRequest;
+import org.blogapp.dtos.responses.NewPostResponse;
 
 public class PostMapper {
 
@@ -20,6 +21,18 @@ public class PostMapper {
         return post;
     }
 
+
+    public static NewPostResponse mapPostToNewPostResponse(Post post){
+        NewPostResponse newPostResponse = new NewPostResponse();
+
+        newPostResponse.setMessage("Post successfully created");
+        newPostResponse.setComments(post.getComments());
+        newPostResponse.setViews(post.getViews());
+        newPostResponse.setLikes(post.getLikes());
+
+        return newPostResponse;
+
+    }
 
 }
 
