@@ -3,7 +3,7 @@ package org.blogapp.dtos.responses;
 import lombok.Data;
 
 @Data
-public class PostResponse {
+public class NewPostResponse {
 
     private String message;
     private int likes;

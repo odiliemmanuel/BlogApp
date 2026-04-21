@@ -3,7 +3,7 @@ package org.blogapp.dtos.requests;
 import lombok.Data;
 
 @Data
-public class PostRequest {
+public class NewPostRequest {
 
     private String title;
     private String content;

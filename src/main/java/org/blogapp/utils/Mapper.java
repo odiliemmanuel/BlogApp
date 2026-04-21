@@ -43,9 +43,18 @@ public class Mapper {
         return  userLoginResponse;
     }
 
-//    String username;
-//    String firstName;
-//    String phoneNumber;
-//    String message;
+
+
+//
+//    private String title;
+//    private String content;
+//    private String postId;
+//    private int comments = 0;
+//    private int likes = 0;
+//    private int views = 0;
+
+
+
+
 }
 
