@@ -9,7 +9,7 @@ import org.blogapp.dtos.responses.UserSignUpResponse;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.UserAlreadyExistsException;
 import org.blogapp.exceptions.UserDoesNotExistException;
-import org.blogapp.utils.Mapper;
+import org.blogapp.utils.AuthenticationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,13 +21,13 @@ public class AuthenticationService {
     private UserRepository userRepository;
 
     public UserSignUpResponse signUp(UserSignUpRequest userSignUpRequest){
-        User user = Mapper.mapUserSignUpRequestToUser(userSignUpRequest);
+        User user = AuthenticationMapper.mapUserSignUpRequestToUser(userSignUpRequest);
         if(userRepository.findByEmail(user.getEmailAddress()) != null){
             throw new UserAlreadyExistsException(Messages.USER_ALREADY_EXISTS_EXCEPTION);
         }
         else{
             userRepository.save(user);
-            return Mapper.mapUserToSignUpResponse(user);
+            return AuthenticationMapper.mapUserToSignUpResponse(user);
         }
     }
 
@@ -39,7 +39,7 @@ public class AuthenticationService {
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
         else{
-            return Mapper.mapUserLoginResponseToUser(user);
+            return AuthenticationMapper.mapUserLoginResponseToUser(user);
         }
     }
 

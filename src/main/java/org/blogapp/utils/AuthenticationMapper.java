@@ -5,7 +5,7 @@ import org.blogapp.dtos.requests.UserSignUpRequest;
 import org.blogapp.dtos.responses.UserLoginResponse;
 import org.blogapp.dtos.responses.UserSignUpResponse;
 
-public class Mapper {
+public class AuthenticationMapper {
 
 
     public static User mapUserSignUpRequestToUser(UserSignUpRequest userSignUpRequest){
@@ -42,16 +42,6 @@ public class Mapper {
 
         return  userLoginResponse;
     }
-
-
-
-//
-//    private String title;
-//    private String content;
-//    private String postId;
-//    private int comments = 0;
-//    private int likes = 0;
-//    private int views = 0;
 
 
 
