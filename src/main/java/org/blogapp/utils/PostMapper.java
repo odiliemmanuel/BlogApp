@@ -8,17 +8,19 @@ public class PostMapper {
 
     public static Post mapNewPostRequestToPost(NewPostRequest newPostRequest){
         Post post = new Post();
-        post
+
+        post.setUserId(newPostRequest.getUserId());
+        post.setId(newPostRequest.getPostId());
+        post.setTitle(newPostRequest.getTitle());
+        post.setContent(newPostRequest.getContent());
+        post.setViews(newPostRequest.getViews());
+        post.setComments(newPostRequest.getComments());
+        post.setLikes(newPostRequest.getLikes());
+
+        return post;
     }
 
 
-
-//    private String title;
-//    private String content;
-//    private String postId;
-//    private int comments = 0;
-//    private int likes = 0;
-//    private int views = 0;
 }
 
 
