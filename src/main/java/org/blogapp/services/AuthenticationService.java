@@ -10,6 +10,7 @@ import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.UserAlreadyExistsException;
 import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.utils.AuthenticationMapper;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,14 +34,15 @@ public class AuthenticationService {
 
 
     public UserLoginResponse logIn(UserLoginRequest userLoginRequest){
-        User user = userRepository.findByEmail(userLoginRequest.getEmailAddress());
 
-        if(!user.getEmailAddress().equals(userLoginRequest.getEmailAddress()) && !user.getPassword().equals(userLoginRequest.getPassword())){
+        if(!userRepository.existsByEmail(userLoginRequest.getEmailAddress())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
-        else{
-            return AuthenticationMapper.mapUserLoginResponseToUser(user);
-        }
+        User foundUser = userRepository.findByEmail(userLoginRequest.getEmailAddress());
+
+        if(!BCrypt.checkpw(userLoginRequest.getPassword(), foundUser.getPassword()))throw new IllegalArgumentException("invalid password");
+        return AuthenticationMapper.mapUserLoginResponseToUser(foundUser);
+
     }
 
 

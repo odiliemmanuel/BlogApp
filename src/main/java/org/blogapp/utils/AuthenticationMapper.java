@@ -4,6 +4,7 @@ import org.blogapp.data.models.User;
 import org.blogapp.dtos.requests.UserSignUpRequest;
 import org.blogapp.dtos.responses.UserLoginResponse;
 import org.blogapp.dtos.responses.UserSignUpResponse;
+import org.mindrot.jbcrypt.BCrypt;
 
 public class AuthenticationMapper {
 
@@ -16,7 +17,8 @@ public class AuthenticationMapper {
         user.setPhoneNumber(userSignUpRequest.getPhoneNumber());
         user.setUsername(userSignUpRequest.getUserName());
         user.setEmailAddress(userSignUpRequest.getEmailAddress());
-        user.setPassword(userSignUpRequest.getPassword());
+        String hashedPassword = BCrypt.hashpw(userSignUpRequest.getPassword(), BCrypt.gensalt());
+        user.setPassword(hashedPassword);
 
         return user;
     }
