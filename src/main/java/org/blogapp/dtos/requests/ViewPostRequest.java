@@ -3,7 +3,7 @@ package org.blogapp.dtos.requests;
 import lombok.Data;
 
 @Data
-public class ViewRequest {
+public class ViewPostRequest {
 
     private String postId;
 }

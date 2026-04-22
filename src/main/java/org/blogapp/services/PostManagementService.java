@@ -3,7 +3,9 @@ package org.blogapp.services;
 import org.blogapp.data.models.Post;
 import org.blogapp.data.repositories.PostRepository;
 import org.blogapp.dtos.requests.NewPostRequest;
+import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.NewPostResponse;
+import org.blogapp.dtos.responses.ViewPostResponse;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
 import org.blogapp.utils.PostMapper;
@@ -32,5 +34,10 @@ public class PostManagementService {
 
     }
 
+    public ViewPostResponse view(ViewPostRequest viewPostRequest){
+
+    }
+
 
 }
+// private String postId;
