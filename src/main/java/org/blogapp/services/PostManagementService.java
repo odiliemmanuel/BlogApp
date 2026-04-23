@@ -10,6 +10,7 @@ import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 import org.blogapp.exceptions.Messages;
+import org.blogapp.exceptions.PostDoesNotExistException;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
 import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.utils.PostMapper;
