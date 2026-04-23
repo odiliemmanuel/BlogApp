@@ -41,7 +41,8 @@ public class PostManagementService {
     }
 
     public ViewPostResponse view(ViewPostRequest viewPostRequest){
-        User user = userRepository.findById(viewPostRequest.getUserId());
+        User user = userRepository.findUserById(viewPostRequest.getUserId());
+        Post post = postRepository.findPostById(viewPostRequest.getPostId());
 
     }
 
