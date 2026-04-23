@@ -6,4 +6,5 @@ import lombok.Data;
 public class LikeRequest {
 
     private String postId;
+    private String userId;
 }

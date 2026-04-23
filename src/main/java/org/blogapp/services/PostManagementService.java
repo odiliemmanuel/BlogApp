@@ -5,9 +5,11 @@ import org.blogapp.data.models.User;
 import org.blogapp.data.repositories.PostRepository;
 import org.blogapp.data.repositories.UserRepository;
 import org.blogapp.dtos.requests.CommentRequest;
+import org.blogapp.dtos.requests.LikeRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.CommentResponse;
+import org.blogapp.dtos.responses.LikeResponse;
 import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 import org.blogapp.exceptions.Messages;
@@ -95,6 +97,11 @@ public class PostManagementService {
 
             return PostMapper.mapCommentResponseToUserAndPost(commentRequest, post, user);
         }
+
+    }
+
+
+    public LikeResponse likePost(LikeRequest likeRequest){
 
     }
 
