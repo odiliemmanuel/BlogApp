@@ -47,11 +47,13 @@ public class PostMapper {
     }
 
 
-    public static CommentResponse mapCommentResponseToUserAndPost(CommentRequest commentRequest, Post post){
+    public static CommentResponse mapCommentResponseToUserAndPost(CommentRequest commentRequest, Post post, User user){
         CommentResponse commentResponse = new CommentResponse();
 
         commentResponse.setContent(commentRequest.getContent());
-        commentResponse.set
+        commentResponse.setMessage(user.getUsername() + " commented on your post: " + post.getTitle());
+
+        return commentResponse;
 
     }
 

@@ -82,7 +82,7 @@ public class PostManagementService {
         }
 
         if(post.getViews() > 0){
-            return PostMapper.
+            return PostMapper.mapCommentResponseToUserAndPost
         }
 
     }
