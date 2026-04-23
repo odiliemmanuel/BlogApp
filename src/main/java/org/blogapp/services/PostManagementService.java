@@ -81,6 +81,10 @@ public class PostManagementService {
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
 
+        if(post.getViews() > 0){
+            return PostMapper.
+        }
+
     }
 
 //    private String content;
