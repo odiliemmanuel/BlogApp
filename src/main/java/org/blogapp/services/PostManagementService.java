@@ -64,7 +64,7 @@ public class PostManagementService {
 
         post.setViews(++views);
         postRepository.save(post);
-        return PostMapper.mapViewPostRequestToPostAndUser(user, post);
+        return PostMapper.mapViewPostResponseToPostAndUser(user, post);
 
     }
 
