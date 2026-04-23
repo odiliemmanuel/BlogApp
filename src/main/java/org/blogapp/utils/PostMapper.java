@@ -1,11 +1,10 @@
 package org.blogapp.utils;
 
-import org.blogapp.data.models.Like;
-import org.blogapp.data.models.Post;
-import org.blogapp.data.models.User;
+import org.blogapp.data.models.*;
 import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.LikeRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
+import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.CommentResponse;
 import org.blogapp.dtos.responses.LikeResponse;
 import org.blogapp.dtos.responses.NewPostResponse;
@@ -42,6 +41,10 @@ public class PostMapper {
 
     }
 
+    public static View mapViewPostRequestToViews(ViewPostRequest viewPostRequest){
+
+    }
+
     public static ViewPostResponse mapViewPostResponseToPostAndUser(User user, Post post){
         ViewPostResponse viewPostResponse = new ViewPostResponse();
 
@@ -51,6 +54,15 @@ public class PostMapper {
         return viewPostResponse;
     }
 
+    public static Comment mapCommentRequestToComment(CommentRequest commentRequest){
+        Comment comment = new Comment();
+
+        comment.setUserId(commentRequest.getUserId());
+        comment.setPostId(commentRequest.getPostId());
+        comment.setContent(commentRequest.getContent());
+
+        return comment;
+    }
 
     public static CommentResponse mapCommentResponseToUserAndPost(CommentRequest commentRequest, Post post, User user){
         CommentResponse commentResponse = new CommentResponse();
@@ -63,11 +75,14 @@ public class PostMapper {
 
     }
 
-    public static Like mapLikeResponseToUserAndPost(LikeRequest likeRequest) {
+
+    public static Like mapLikeRequestToUserLikes(LikeRequest likeRequest) {
         Like like = new Like();
 
         like.setPostId(likeRequest.getPostId());
         like.setUserId(likeRequest.getUserId());
+
+        return like;
     }
 }
 

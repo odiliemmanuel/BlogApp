@@ -1,10 +1,10 @@
 package org.blogapp.services;
 
+import org.blogapp.data.models.Comment;
 import org.blogapp.data.models.Like;
 import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
-import org.blogapp.data.repositories.PostRepository;
-import org.blogapp.data.repositories.UserRepository;
+import org.blogapp.data.repositories.*;
 import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.LikeRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
@@ -32,10 +32,20 @@ public class PostManagementService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    LikeRepository likeRepository;
+
+    @Autowired
+    CommentRepository commentRepository;
+
+    @Autowired
+    ViewRepository viewRepository;
+
+
     private static int views = 0;
     private static int comments = 0;
     private static int likes = 0;
-    private static List<Like> like;
+//    private static List<Like> like;
 
     public NewPostResponse createNewPost(NewPostRequest newPostRequest){
 
@@ -43,9 +53,6 @@ public class PostManagementService {
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
 
-        if(postRepository.existsById(newPostRequest.getPostId())){
-            throw new PostWithIdAlreadyExistsException(Messages.POST_WITH_ID_ALREADY_EXIST_EXCEPTION);
-        }
 
         else{
 
@@ -80,6 +87,9 @@ public class PostManagementService {
     public CommentResponse commentOnPost(CommentRequest commentRequest){
         Post post = postRepository.findPostById(commentRequest.getPostId());
         User user = userRepository.findUserById(commentRequest.getUserId());
+        Comment comment = PostMapper.mapCommentRequestToComment(commentRequest);
+
+        commentRepository.save(comment);
 
         if(!userRepository.existsById(user.getId())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
@@ -107,6 +117,9 @@ public class PostManagementService {
     public LikeResponse likePost(LikeRequest likeRequest){
         Post post = postRepository.findPostById(likeRequest.getPostId());
         User user = userRepository.findUserById(likeRequest.getUserId());
+        Like like = PostMapper.mapLikeRequestToUserLikes(likeRequest);
+
+        likeRepository.save(like);
 
         if(!userRepository.existsById(user.getId())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
