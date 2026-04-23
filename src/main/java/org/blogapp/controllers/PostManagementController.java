@@ -1,6 +1,7 @@
 package org.blogapp.controllers;
 
 import org.blogapp.dtos.requests.NewPostRequest;
+import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
 import org.blogapp.services.PostManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class PostManagementController {
     public ResponseEntity<?> makePost(NewPostRequest newPostRequest){
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(postManagementService.createNewPost(newPostRequest));
+        }
+        catch(PostWithIdAlreadyExistsException error){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
         }
     }
 }
