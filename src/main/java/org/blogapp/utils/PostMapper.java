@@ -2,7 +2,6 @@ package org.blogapp.utils;
 
 import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
-import org.blogapp.data.models.View;
 import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.responses.CommentResponse;

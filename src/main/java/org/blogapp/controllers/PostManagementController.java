@@ -1,7 +1,10 @@
 package org.blogapp.controllers;
 
+import org.apache.coyote.Response;
+import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
+import org.blogapp.exceptions.PostDoesNotExistException;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
 import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.services.PostManagementService;
@@ -37,6 +40,17 @@ public class PostManagementController {
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.viewPost(viewPostRequest));
         }
         catch(UserDoesNotExistException error){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
+    }
+
+
+    @PostMapping("/comment/post")
+    public ResponseEntity<?> commentOnPost(CommentRequest commentRequest){
+        try{
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.commentOnPost(commentRequest));
+        }
+        catch(PostDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
         }
     }
