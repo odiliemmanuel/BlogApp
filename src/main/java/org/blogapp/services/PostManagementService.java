@@ -4,7 +4,6 @@ import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
 import org.blogapp.data.repositories.PostRepository;
 import org.blogapp.data.repositories.UserRepository;
-import org.blogapp.data.repositories.ViewRepository;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.NewPostResponse;
@@ -25,6 +24,8 @@ public class PostManagementService {
 
     @Autowired
     UserRepository userRepository;
+
+    private static int views = 0;
 
     public NewPostResponse createNewPost(NewPostRequest newPostRequest){
 
@@ -53,10 +54,12 @@ public class PostManagementService {
         if(!userRepository.existsById(user.getId())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
+
         if(!postRepository.existsById(post.getId())){
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
 
+        post.setViews(++views);
         return PostMapper.mapViewPostRequestToPostAndUser(user, post);
 
     }
