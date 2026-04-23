@@ -23,7 +23,7 @@ public class AuthenticationService {
 
     public UserSignUpResponse signUp(UserSignUpRequest userSignUpRequest){
         User user = AuthenticationMapper.mapUserSignUpRequestToUser(userSignUpRequest);
-        if(userRepository.findByEmail(user.getEmailAddress()) != null){
+        if(userRepository.findByEmailAddress(user.getEmailAddress()) != null){
             throw new UserAlreadyExistsException(Messages.USER_ALREADY_EXISTS_EXCEPTION);
         }
         else{
@@ -35,10 +35,10 @@ public class AuthenticationService {
 
     public UserLoginResponse logIn(UserLoginRequest userLoginRequest){
 
-        if(!userRepository.existsByEmail(userLoginRequest.getEmailAddress())){
+        if(!userRepository.existsByEmailAddress(userLoginRequest.getEmailAddress())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
-        User foundUser = userRepository.findByEmail(userLoginRequest.getEmailAddress());
+        User foundUser = userRepository.findByEmailAddress(userLoginRequest.getEmailAddress());
 
         if(!BCrypt.checkpw(userLoginRequest.getPassword(), foundUser.getPassword()))throw new IllegalArgumentException("invalid password");
         return AuthenticationMapper.mapUserLoginResponseToUser(foundUser);

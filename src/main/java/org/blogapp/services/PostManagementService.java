@@ -34,9 +34,9 @@ public class PostManagementService {
 
     }
 
-    public ViewPostResponse view(ViewPostRequest viewPostRequest){
-
-    }
+//    public ViewPostResponse view(ViewPostRequest viewPostRequest){
+//
+//    }
 
 
 }

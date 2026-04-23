@@ -35,7 +35,7 @@ public class AuthenticationController {
     @GetMapping
     public ResponseEntity<?> login(UserLoginRequest userLoginRequest){
         try{
-            return ResponseEntity.status(HttpStatus.FOUND).body(authenticationService.logIn(userLoginRequest));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(authenticationService.logIn(userLoginRequest));
         }
         catch(UserDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
