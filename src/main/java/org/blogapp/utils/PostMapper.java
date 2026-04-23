@@ -41,7 +41,7 @@ public class PostMapper {
 
     }
 
-    public static ViewPostResponse mapViewPostResponseToPostAndUser(View view, User user, Post post){
+    public static ViewPostResponse mapViewPostResponseToPostAndUser(User user, Post post){
         ViewPostResponse viewPostResponse = new ViewPostResponse();
 
         viewPostResponse.setMessage(user.getUsername() + " just viewed your post: " + post.getTitle());
