@@ -11,6 +11,7 @@ import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
+import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.utils.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,6 +44,13 @@ public class PostManagementService {
     public ViewPostResponse view(ViewPostRequest viewPostRequest){
         User user = userRepository.findUserById(viewPostRequest.getUserId());
         Post post = postRepository.findPostById(viewPostRequest.getPostId());
+
+        if(!userRepository.existsById(user.getId())){
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+        if(!postRepository.existsById(post.getId())){
+            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST);
+        }
 
     }
 
