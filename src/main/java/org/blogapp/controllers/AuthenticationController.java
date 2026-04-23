@@ -21,7 +21,7 @@ public class AuthenticationController {
     public AuthenticationService authenticationService;
 
 
-    @PostMapping("/sign-up")
+    @PostMapping("/signup")
     public ResponseEntity<?> signUp(UserSignUpRequest userSignUpRequest){
         try{
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(authenticationService.signUp(userSignUpRequest));
@@ -32,7 +32,7 @@ public class AuthenticationController {
 
     }
 
-    @GetMapping
+    @GetMapping("/login")
     public ResponseEntity<?> login(UserLoginRequest userLoginRequest){
         try{
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(authenticationService.logIn(userLoginRequest));

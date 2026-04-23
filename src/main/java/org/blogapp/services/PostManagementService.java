@@ -28,6 +28,10 @@ public class PostManagementService {
 
     public NewPostResponse createNewPost(NewPostRequest newPostRequest){
 
+        if(!userRepository.existsById(newPostRequest.getUserId())){
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+
         if(postRepository.existsById(newPostRequest.getPostId())){
             throw new PostWithIdAlreadyExistsException(Messages.POST_WITH_ID_ALREADY_EXIST_EXCEPTION);
         }
