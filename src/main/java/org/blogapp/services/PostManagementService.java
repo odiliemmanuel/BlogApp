@@ -75,10 +75,18 @@ public class PostManagementService {
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
 
-        post.setViews(++views);
-        postRepository.save(post);
-        views = 0;
-        return PostMapper.mapViewPostResponseToPostAndUser(user, post);
+        if(!viewRepository.existsById(view.getId())){
+            return PostMapper.mapViewPostResponseToPostAndUser(user, post);
+        }
+        else{
+
+            post.setViews(++views);
+            postRepository.save(post);
+            views = 0;
+            return PostMapper.mapViewPostResponseToPostAndUser(user, post);
+
+        }
+
 
     }
 
@@ -97,6 +105,7 @@ public class PostManagementService {
         if(!postRepository.existsById(post.getId())){
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
+
 
 
         else{
