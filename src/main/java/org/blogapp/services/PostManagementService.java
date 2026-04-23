@@ -47,7 +47,7 @@ public class PostManagementService {
 
     }
 
-    public ViewPostResponse view(ViewPostRequest viewPostRequest){
+    public ViewPostResponse viewPost(ViewPostRequest viewPostRequest){
         User user = userRepository.findUserById(viewPostRequest.getUserId());
         Post post = postRepository.findPostById(viewPostRequest.getPostId());
 
@@ -60,6 +60,7 @@ public class PostManagementService {
         }
 
         post.setViews(++views);
+        postRepository.save(post);
         return PostMapper.mapViewPostRequestToPostAndUser(user, post);
 
     }

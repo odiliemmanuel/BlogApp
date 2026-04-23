@@ -1,7 +1,9 @@
 package org.blogapp.controllers;
 
 import org.blogapp.dtos.requests.NewPostRequest;
+import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
+import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.services.PostManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,4 +31,13 @@ public class PostManagementController {
     }
 
 
+    @PostMapping("/view/post")
+    public ResponseEntity<?> viewPost(ViewPostRequest viewPostRequest){
+        try{
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.viewPost(viewPostRequest));
+        }
+        catch(UserDoesNotExistException error){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
+    }
 }
