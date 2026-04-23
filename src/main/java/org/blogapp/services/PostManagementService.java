@@ -53,10 +53,10 @@ public class PostManagementService {
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
 
-
+        return PostMapper.mapViewPostRequestToPostAndUser(user, post);
 
     }
 
 
 }
-// private String postId;
+
