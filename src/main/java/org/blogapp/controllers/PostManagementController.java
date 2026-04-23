@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/users/post")
+@RequestMapping("post")
 public class PostManagementController {
 
     @Autowired
     private PostManagementService postManagementService;
 
 
-    @PostMapping("/new/post")
+    @PostMapping("/create/new/post")
     public ResponseEntity<?> makePost(NewPostRequest newPostRequest){
         try{
             return ResponseEntity.status(HttpStatus.CREATED).body(postManagementService.createNewPost(newPostRequest));
