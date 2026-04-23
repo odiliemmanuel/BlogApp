@@ -1,5 +1,6 @@
 package org.blogapp.services;
 
+import org.blogapp.data.models.Like;
 import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
 import org.blogapp.data.repositories.PostRepository;
@@ -20,6 +21,8 @@ import org.blogapp.utils.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PostManagementService {
 
@@ -31,6 +34,8 @@ public class PostManagementService {
 
     private static int views = 0;
     private static int comments = 0;
+    private static int likes = 0;
+    private static List<Like> like;
 
     public NewPostResponse createNewPost(NewPostRequest newPostRequest){
 
@@ -84,9 +89,7 @@ public class PostManagementService {
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
 
-        if(post.getViews() > 0){
-            return PostMapper.mapCommentResponseToUserAndPost(commentRequest, post, user);
-        }
+
         else{
             post.setViews(++views);
             post.setComments(++comments);
@@ -102,6 +105,21 @@ public class PostManagementService {
 
 
     public LikeResponse likePost(LikeRequest likeRequest){
+        Post post = postRepository.findPostById(likeRequest.getPostId());
+        User user = userRepository.findUserById(likeRequest.getUserId());
+
+        if(!userRepository.existsById(user.getId())){
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+
+        if(!postRepository.existsById(post.getId())){
+            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+        if(post.getLikes() > 0){
+            return PostMapper.mapLikeResponseToUserAndPost(likeRequest, post, user);
+        }
 
     }
 

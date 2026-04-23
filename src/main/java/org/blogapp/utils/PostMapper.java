@@ -3,8 +3,10 @@ package org.blogapp.utils;
 import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
 import org.blogapp.dtos.requests.CommentRequest;
+import org.blogapp.dtos.requests.LikeRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.responses.CommentResponse;
+import org.blogapp.dtos.responses.LikeResponse;
 import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 
@@ -61,6 +63,8 @@ public class PostMapper {
 
     }
 
+    public static LikeResponse mapLikeResponseToUserAndPost(LikeRequest likeRequest, Post post, User user) {
+    }
 }
 
 
