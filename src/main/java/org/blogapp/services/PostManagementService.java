@@ -1,7 +1,10 @@
 package org.blogapp.services;
 
 import org.blogapp.data.models.Post;
+import org.blogapp.data.models.User;
 import org.blogapp.data.repositories.PostRepository;
+import org.blogapp.data.repositories.UserRepository;
+import org.blogapp.data.repositories.ViewRepository;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.NewPostResponse;
@@ -17,6 +20,9 @@ public class PostManagementService {
 
     @Autowired
     PostRepository postRepository;
+
+    @Autowired
+    UserRepository userRepository;
 
     public NewPostResponse createNewPost(NewPostRequest newPostRequest){
 
@@ -34,9 +40,10 @@ public class PostManagementService {
 
     }
 
-//    public ViewPostResponse view(ViewPostRequest viewPostRequest){
-//
-//    }
+    public ViewPostResponse view(ViewPostRequest viewPostRequest){
+        User user = userRepository.findById(viewPostRequest.getUserId());
+
+    }
 
 
 }
