@@ -1,5 +1,6 @@
 package org.blogapp.utils;
 
+import org.blogapp.data.models.Like;
 import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
 import org.blogapp.dtos.requests.CommentRequest;
@@ -19,7 +20,6 @@ public class PostMapper {
         Post post = new Post();
 
         post.setUserId(newPostRequest.getUserId());
-        post.setId(newPostRequest.getPostId());
         post.setTitle(newPostRequest.getTitle());
         post.setContent(newPostRequest.getContent());
         post.setViews(newPostRequest.getViews());
@@ -63,7 +63,11 @@ public class PostMapper {
 
     }
 
-    public static LikeResponse mapLikeResponseToUserAndPost(LikeRequest likeRequest, Post post, User user) {
+    public static Like mapLikeResponseToUserAndPost(LikeRequest likeRequest) {
+        Like like = new Like();
+
+        like.setPostId(likeRequest.getPostId());
+        like.setUserId(likeRequest.getUserId());
     }
 }
 

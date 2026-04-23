@@ -117,9 +117,7 @@ public class PostManagementService {
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
 
-        if(post.getLikes() > 0){
-            return PostMapper.mapLikeResponseToUserAndPost(likeRequest, post, user);
-        }
+
 
     }
 

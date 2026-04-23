@@ -6,7 +6,6 @@ import lombok.Data;
 public class NewPostRequest {
 
     private String userId;
-    private String postId;
     private String title;
     private String content;
     private int comments = 0;
