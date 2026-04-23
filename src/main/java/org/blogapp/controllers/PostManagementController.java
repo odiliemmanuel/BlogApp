@@ -1,6 +1,6 @@
 package org.blogapp.controllers;
 
-import org.apache.coyote.Response;
+
 import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;

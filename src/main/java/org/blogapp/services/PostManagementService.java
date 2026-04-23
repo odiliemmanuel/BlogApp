@@ -1,9 +1,6 @@
 package org.blogapp.services;
 
-import org.blogapp.data.models.Comment;
-import org.blogapp.data.models.Like;
-import org.blogapp.data.models.Post;
-import org.blogapp.data.models.User;
+import org.blogapp.data.models.*;
 import org.blogapp.data.repositories.*;
 import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.LikeRequest;
@@ -15,13 +12,11 @@ import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.PostDoesNotExistException;
-import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
 import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.utils.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class PostManagementService {
@@ -53,7 +48,6 @@ public class PostManagementService {
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
 
-
         else{
 
             Post post = PostMapper.mapNewPostRequestToPost(newPostRequest);
@@ -64,9 +58,14 @@ public class PostManagementService {
 
     }
 
+
+
     public ViewPostResponse viewPost(ViewPostRequest viewPostRequest){
         User user = userRepository.findUserById(viewPostRequest.getUserId());
         Post post = postRepository.findPostById(viewPostRequest.getPostId());
+        View view = PostMapper.mapViewPostRequestToViews(viewPostRequest);
+
+        viewRepository.save(view);
 
         if(!userRepository.existsById(user.getId())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
@@ -125,11 +124,9 @@ public class PostManagementService {
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
 
-
         if(!postRepository.existsById(post.getId())){
             throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
-
 
 
     }

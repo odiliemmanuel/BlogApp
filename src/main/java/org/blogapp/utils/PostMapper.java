@@ -6,7 +6,6 @@ import org.blogapp.dtos.requests.LikeRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.CommentResponse;
-import org.blogapp.dtos.responses.LikeResponse;
 import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 
@@ -42,7 +41,13 @@ public class PostMapper {
     }
 
     public static View mapViewPostRequestToViews(ViewPostRequest viewPostRequest){
+        View view = new View();
 
+        view.setUserId(viewPostRequest.getUserId());
+        view.setPostId(viewPostRequest.getPostId());
+        view.setViewedAt(String.valueOf(LocalDateTime.now()));
+
+        return view;
     }
 
     public static ViewPostResponse mapViewPostResponseToPostAndUser(User user, Post post){
