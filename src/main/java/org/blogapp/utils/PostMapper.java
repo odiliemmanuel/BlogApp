@@ -1,8 +1,10 @@
 package org.blogapp.utils;
 
 import org.blogapp.data.models.Post;
+import org.blogapp.data.models.User;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.responses.NewPostResponse;
+import org.blogapp.dtos.responses.ViewPostResponse;
 
 public class PostMapper {
 
@@ -32,6 +34,14 @@ public class PostMapper {
 
         return newPostResponse;
 
+    }
+
+    public static ViewPostResponse mapViewPostRequestToPostAndUser(User user, Post post){
+        ViewPostResponse viewPostResponse = new ViewPostResponse();
+
+        viewPostResponse.setMessage(user.getUsername() + " just viewed your post: " + post.getTitle());
+
+        return viewPostResponse;
     }
 
 }

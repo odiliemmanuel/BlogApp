@@ -50,8 +50,10 @@ public class PostManagementService {
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
         if(!postRepository.existsById(post.getId())){
-            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST);
+            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
         }
+
+
 
     }
 
