@@ -2,11 +2,14 @@ package org.blogapp.utils;
 
 import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
+import org.blogapp.data.models.View;
 import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.responses.CommentResponse;
 import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
+
+import java.time.LocalDateTime;
 
 public class PostMapper {
 
@@ -38,10 +41,11 @@ public class PostMapper {
 
     }
 
-    public static ViewPostResponse mapViewPostResponseToPostAndUser(User user, Post post){
+    public static ViewPostResponse mapViewPostResponseToPostAndUser(View view, User user, Post post){
         ViewPostResponse viewPostResponse = new ViewPostResponse();
 
         viewPostResponse.setMessage(user.getUsername() + " just viewed your post: " + post.getTitle());
+        viewPostResponse.setViewTime(LocalDateTime.now());
 
         return viewPostResponse;
     }
@@ -51,6 +55,7 @@ public class PostMapper {
         CommentResponse commentResponse = new CommentResponse();
 
         commentResponse.setContent(commentRequest.getContent());
+
         commentResponse.setMessage(user.getUsername() + " commented on your post: " + post.getTitle());
 
         return commentResponse;

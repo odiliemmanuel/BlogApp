@@ -64,6 +64,7 @@ public class PostManagementService {
 
         post.setViews(++views);
         postRepository.save(post);
+        views = 0;
         return PostMapper.mapViewPostResponseToPostAndUser(user, post);
 
     }
@@ -82,16 +83,20 @@ public class PostManagementService {
         }
 
         if(post.getViews() > 0){
-            return PostMapper.mapCommentResponseToUserAndPost
+            return PostMapper.mapCommentResponseToUserAndPost(commentRequest, post, user);
+        }
+        else{
+            post.setViews(++views);
+            post.setComments(++comments);
+            postRepository.save(post);
+
+            views = 0;
+            comments = 0;
+
+            return PostMapper.mapCommentResponseToUserAndPost(commentRequest, post, user);
         }
 
     }
-
-//    private String content;
-//    private String postId;
-
-//    private String content;
-//    private String message;
 
 
 }
