@@ -4,8 +4,10 @@ import org.blogapp.data.models.Post;
 import org.blogapp.data.models.User;
 import org.blogapp.data.repositories.PostRepository;
 import org.blogapp.data.repositories.UserRepository;
+import org.blogapp.dtos.requests.CommentRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
+import org.blogapp.dtos.responses.CommentResponse;
 import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 import org.blogapp.exceptions.Messages;
@@ -26,6 +28,7 @@ public class PostManagementService {
     UserRepository userRepository;
 
     private static int views = 0;
+    private static int comments = 0;
 
     public NewPostResponse createNewPost(NewPostRequest newPostRequest){
 
@@ -66,7 +69,25 @@ public class PostManagementService {
     }
 
 
-    publi
+    public CommentResponse commentOnPost(CommentRequest commentRequest){
+        Post post = postRepository.findPostById(commentRequest.getPostId());
+        User user = userRepository.findUserById(commentRequest.getUserId());
+
+        if(!userRepository.existsById(user.getId())){
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+        if(!postRepository.existsById(post.getId())){
+            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+    }
+
+//    private String content;
+//    private String postId;
+
+//    private String content;
+//    private String message;
 
 
 }

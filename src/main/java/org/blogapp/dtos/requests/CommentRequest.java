@@ -7,4 +7,5 @@ public class CommentRequest {
 
     private String content;
     private String postId;
+    private String userId;
 }
