@@ -11,7 +11,6 @@ import org.blogapp.dtos.responses.LikeResponse;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.PostDoesNotExistException;
 import org.blogapp.exceptions.UserDoesNotExistException;
-import org.blogapp.utils.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class LikeManagementService {
     public LikeResponse likePost(LikeRequest likeRequest) {
         Post post = postRepository.findPostById(likeRequest.getPostId());
         User user = userRepository.findUserById(likeRequest.getUserId());
-        Like like = PostMapper.mapLikeRequestToUserLikes(likeRequest);
+        Like like = new Like(likeRequest.getUserId(), likeRequest.getPostId());
 //
         likeRepository.save(like);
 

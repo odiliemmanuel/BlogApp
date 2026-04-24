@@ -82,21 +82,21 @@ public class PostMapper {
     }
 
 
-    public static Like mapLikeRequestToUserLikes(LikeRequest likeRequest) {
-        Like like = new Like();
+//    public static Like mapLikeRequestToUserLikes(LikeRequest likeRequest) {
+//        Like like = new Like();
+//
+//        like.setPostId(likeRequest.getPostId());
+//        like.setUserId(likeRequest.getUserId());
+//
+//        return like;
+//    }
 
-        like.setPostId(likeRequest.getPostId());
-        like.setUserId(likeRequest.getUserId());
-
-        return like;
-    }
-
-    public static LikeResponse mapUserLikeResponseToPost(Post post){
-        LikeResponse likeResponse = new LikeResponse();
-
-        likeResponse.setMessage("You liked this post: " + post.getTitle());
-        return likeResponse;
-    }
+//    public static LikeResponse mapUserLikeResponseToPost(Post post){
+//        LikeResponse likeResponse = new LikeResponse();
+//
+//        likeResponse.setMessage("You liked this post: " + post.getTitle());
+//        return likeResponse;
+//    }
 
 
 
