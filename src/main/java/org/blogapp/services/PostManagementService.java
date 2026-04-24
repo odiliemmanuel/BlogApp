@@ -11,6 +11,8 @@ import org.blogapp.utils.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 public class PostManagementService {
@@ -158,6 +160,20 @@ public class PostManagementService {
         deletePostResponse.setMessage("Heyy, " + user.getUsername() + " your post has been successfully removed");
         return deletePostResponse;
 
+    }
+
+
+    public List<View> getViewers(){
+        return viewRepository.findAll();
+    }
+
+
+    public List<Comment> getComments(){
+        return commentRepository.findAll();
+    }
+
+    public List<Like> getLikes(){
+        return likeRepository.findAll();
     }
 
 

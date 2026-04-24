@@ -9,6 +9,7 @@ import org.blogapp.services.PostManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -74,5 +75,42 @@ public class PostManagementController {
         catch(PostDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
         }
+    }
+
+
+
+    @GetMapping("/see/viewers")
+    public ResponseEntity<?> getViewers(){
+        try{
+            return ResponseEntity.status(HttpStatus.FOUND).body(postManagementService.getViewers());
+        }
+        catch(Exception error){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
+        }
+
+    }
+
+
+    @GetMapping("/see/likes")
+    public ResponseEntity<?> getLikes(){
+        try{
+            return ResponseEntity.status(HttpStatus.FOUND).body(postManagementService.getLikes());
+        }
+        catch(Exception error){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
+        }
+
+    }
+
+
+    @GetMapping("/see/comments")
+    public ResponseEntity<?> getComments(){
+        try{
+            return ResponseEntity.status(HttpStatus.FOUND).body(postManagementService.getComments());
+        }
+        catch(Exception error){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
+        }
+
     }
 }
