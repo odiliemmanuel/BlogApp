@@ -14,7 +14,6 @@ import org.blogapp.exceptions.UserDoesNotExistException;
 import org.blogapp.utils.PostMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
@@ -57,7 +56,6 @@ public class ViewManagementService {
         }
 
     }
-
 
 
     public List<View> getViewers(){
