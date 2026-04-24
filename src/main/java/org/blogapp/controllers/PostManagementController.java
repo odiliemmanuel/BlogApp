@@ -5,7 +5,10 @@ import org.blogapp.dtos.requests.*;
 import org.blogapp.exceptions.PostDoesNotExistException;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
 import org.blogapp.exceptions.UserDoesNotExistException;
+import org.blogapp.services.CommentManagementService;
+import org.blogapp.services.LikeManagementService;
 import org.blogapp.services.PostManagementService;
+import org.blogapp.services.ViewManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +23,15 @@ public class PostManagementController {
 
     @Autowired
     private PostManagementService postManagementService;
+
+    @Autowired
+    private CommentManagementService commentManagementService;
+
+    @Autowired
+    private LikeManagementService likeManagementService;
+
+    @Autowired
+    private ViewManagementService viewManagementService;
 
 
     @PostMapping("/create/new/post")
@@ -36,7 +48,7 @@ public class PostManagementController {
     @PostMapping("/view/post")
     public ResponseEntity<?> viewPost(ViewPostRequest viewPostRequest){
         try{
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.viewPost(viewPostRequest));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(viewManagementService.viewPost(viewPostRequest));
         }
         catch(UserDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
@@ -47,7 +59,7 @@ public class PostManagementController {
     @PostMapping("/comment/post")
     public ResponseEntity<?> commentOnPost(CommentRequest commentRequest){
         try{
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.commentOnPost(commentRequest));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(commentManagementService.commentOnPost(commentRequest));
         }
         catch(PostDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
@@ -58,7 +70,7 @@ public class PostManagementController {
     @PostMapping("/like/post")
     public ResponseEntity<?> likePost(LikeRequest likeRequest){
         try{
-            return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.likePost(likeRequest));
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(likeManagementService.likePost(likeRequest));
         }
         catch(PostDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
@@ -82,7 +94,7 @@ public class PostManagementController {
     @GetMapping("/see/viewers")
     public ResponseEntity<?> getViewers(){
         try{
-            return ResponseEntity.status(HttpStatus.FOUND).body(postManagementService.getViewers());
+            return ResponseEntity.status(HttpStatus.FOUND).body(viewManagementService.getViewers());
         }
         catch(Exception error){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
@@ -94,7 +106,7 @@ public class PostManagementController {
     @GetMapping("/see/likes")
     public ResponseEntity<?> getLikes(){
         try{
-            return ResponseEntity.status(HttpStatus.FOUND).body(postManagementService.getLikes());
+            return ResponseEntity.status(HttpStatus.FOUND).body(likeManagementService.getLikes());
         }
         catch(Exception error){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
@@ -106,7 +118,7 @@ public class PostManagementController {
     @GetMapping("/see/comments")
     public ResponseEntity<?> getComments(){
         try{
-            return ResponseEntity.status(HttpStatus.FOUND).body(postManagementService.getComments());
+            return ResponseEntity.status(HttpStatus.FOUND).body(commentManagementService.getComments());
         }
         catch(Exception error){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());

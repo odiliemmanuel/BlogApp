@@ -1,0 +1,68 @@
+package org.blogapp.services;
+
+import org.blogapp.data.models.Like;
+import org.blogapp.data.models.Post;
+import org.blogapp.data.models.User;
+import org.blogapp.data.repositories.LikeRepository;
+import org.blogapp.data.repositories.PostRepository;
+import org.blogapp.data.repositories.UserRepository;
+import org.blogapp.dtos.requests.LikeRequest;
+import org.blogapp.dtos.responses.LikeResponse;
+import org.blogapp.exceptions.Messages;
+import org.blogapp.exceptions.PostDoesNotExistException;
+import org.blogapp.exceptions.UserDoesNotExistException;
+import org.blogapp.utils.PostMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+@Service
+public class LikeManagementService {
+
+    @Autowired
+    private PostRepository postRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    LikeRepository likeRepository;
+
+
+    public LikeResponse likePost(LikeRequest likeRequest){
+        Post post = postRepository.findPostById(likeRequest.getPostId());
+        User user = userRepository.findUserById(likeRequest.getUserId());
+        Like like = PostMapper.mapLikeRequestToUserLikes(likeRequest);
+
+        likeRepository.save(like);
+
+        if(!userRepository.existsById(user.getId())){
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+        if(!postRepository.existsById(post.getId())){
+            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+        if(likeRepository.existsById(like.getId())){
+            post.setLikes(post.getLikes() - 1);
+            postRepository.save(post);
+        }
+
+        else{
+            post.setLikes(post.getLikes() +1);
+            postRepository.save(post);
+            return PostMapper.mapUserLikeResponseToPost(post);
+        }
+
+        return null;
+
+    }
+
+
+    public List<Like> getLikes(){
+        return likeRepository.findAll();
+    }
+
+}
