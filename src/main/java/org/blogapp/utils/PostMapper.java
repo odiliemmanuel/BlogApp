@@ -91,7 +91,7 @@ public class PostMapper {
         return like;
     }
 
-    public LikeResponse mapUserLikeResponseToPostAndUser(Post post){
+    public static LikeResponse mapUserLikeResponseToPost(Post post){
         LikeResponse likeResponse = new LikeResponse();
 
         likeResponse.setMessage("You liked this post: " + post.getTitle());

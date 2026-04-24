@@ -141,7 +141,8 @@ public class PostManagementService {
             post.setLikes(post.getLikes() - 1);
         }
         else{
-            return
+            post.setLikes(post.getLikes() +1);
+            return PostMapper.mapUserLikeResponseToPost(post);
         }
 
 
