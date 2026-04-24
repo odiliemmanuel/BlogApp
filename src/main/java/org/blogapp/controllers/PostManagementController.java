@@ -2,6 +2,7 @@ package org.blogapp.controllers;
 
 
 import org.blogapp.dtos.requests.CommentRequest;
+import org.blogapp.dtos.requests.LikeRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.exceptions.PostDoesNotExistException;
@@ -49,6 +50,17 @@ public class PostManagementController {
     public ResponseEntity<?> commentOnPost(CommentRequest commentRequest){
         try{
             return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.commentOnPost(commentRequest));
+        }
+        catch(PostDoesNotExistException error){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
+    }
+
+
+    @PostMapping("/like/post")
+    public ResponseEntity<?> likePost(LikeRequest likeRequest){
+        try{
+            return ResponseEntity.status(HttpStatus.ACCEPTED).body(postManagementService.likePost(likeRequest));
         }
         catch(PostDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());

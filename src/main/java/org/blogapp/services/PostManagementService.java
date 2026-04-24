@@ -79,7 +79,7 @@ public class PostManagementService {
 
             post.setViews(post.getViews() + 1);
             postRepository.save(post);
-            views = 0;
+
             return PostMapper.mapViewPostResponseToPostAndUser(user, post);
 
         }
@@ -134,11 +134,13 @@ public class PostManagementService {
         if(likeRepository.existsById(like.getId())){
             post.setLikes(post.getLikes() - 1);
         }
+
         else{
             post.setLikes(post.getLikes() +1);
             return PostMapper.mapUserLikeResponseToPost(post);
         }
 
+        return null;
 
     }
 
