@@ -6,6 +6,7 @@ import org.blogapp.dtos.requests.LikeRequest;
 import org.blogapp.dtos.requests.NewPostRequest;
 import org.blogapp.dtos.requests.ViewPostRequest;
 import org.blogapp.dtos.responses.CommentResponse;
+import org.blogapp.dtos.responses.LikeResponse;
 import org.blogapp.dtos.responses.NewPostResponse;
 import org.blogapp.dtos.responses.ViewPostResponse;
 
@@ -88,6 +89,13 @@ public class PostMapper {
         like.setUserId(likeRequest.getUserId());
 
         return like;
+    }
+
+    public LikeResponse mapUserLikeResponseToPostAndUser(Post post){
+        LikeResponse likeResponse = new LikeResponse();
+
+        likeResponse.setMessage("You liked this post: " + post.getTitle());
+        return likeResponse;
     }
 }
 
