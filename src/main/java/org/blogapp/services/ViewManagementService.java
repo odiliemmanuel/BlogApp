@@ -29,11 +29,13 @@ public class ViewManagementService {
     private ViewRepository viewRepository;
 
     public ViewPostResponse viewPost(ViewPostRequest viewPostRequest){
+
         User user = userRepository.findUserById(viewPostRequest.getUserId());
         Post post = postRepository.findPostById(viewPostRequest.getPostId());
         View view = PostMapper.mapViewPostRequestToViews(viewPostRequest);
 
         viewRepository.save(view);
+
 
         if(!userRepository.existsById(user.getId())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
