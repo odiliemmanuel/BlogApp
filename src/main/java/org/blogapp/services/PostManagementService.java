@@ -2,14 +2,8 @@ package org.blogapp.services;
 
 import org.blogapp.data.models.*;
 import org.blogapp.data.repositories.*;
-import org.blogapp.dtos.requests.CommentRequest;
-import org.blogapp.dtos.requests.LikeRequest;
-import org.blogapp.dtos.requests.NewPostRequest;
-import org.blogapp.dtos.requests.ViewPostRequest;
-import org.blogapp.dtos.responses.CommentResponse;
-import org.blogapp.dtos.responses.LikeResponse;
-import org.blogapp.dtos.responses.NewPostResponse;
-import org.blogapp.dtos.responses.ViewPostResponse;
+import org.blogapp.dtos.requests.*;
+import org.blogapp.dtos.responses.*;
 import org.blogapp.exceptions.Messages;
 import org.blogapp.exceptions.PostDoesNotExistException;
 import org.blogapp.exceptions.UserDoesNotExistException;
@@ -133,14 +127,23 @@ public class PostManagementService {
 
         if(likeRepository.existsById(like.getId())){
             post.setLikes(post.getLikes() - 1);
+            postRepository.save(post);
         }
 
         else{
             post.setLikes(post.getLikes() +1);
+            postRepository.save(post);
             return PostMapper.mapUserLikeResponseToPost(post);
         }
 
         return null;
+
+    }
+
+    public DeletePostResponse removePost(DeletePostRequest deletePostRequest){
+        User user = userRepository.findUserById(deletePostRequest.getUserId());
+        Post post = postRepository.findPostById(deletePostRequest.getPostId());
+
 
     }
 
