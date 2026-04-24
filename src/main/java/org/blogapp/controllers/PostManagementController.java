@@ -1,10 +1,7 @@
 package org.blogapp.controllers;
 
 
-import org.blogapp.dtos.requests.CommentRequest;
-import org.blogapp.dtos.requests.LikeRequest;
-import org.blogapp.dtos.requests.NewPostRequest;
-import org.blogapp.dtos.requests.ViewPostRequest;
+import org.blogapp.dtos.requests.*;
 import org.blogapp.exceptions.PostDoesNotExistException;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
 import org.blogapp.exceptions.UserDoesNotExistException;
@@ -64,6 +61,18 @@ public class PostManagementController {
         }
         catch(PostDoesNotExistException error){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error.getMessage());
+        }
+    }
+
+
+
+    @PostMapping("/delete/post")
+    public ResponseEntity<?> deletePost(DeletePostRequest deletePostRequest){
+        try{
+            return ResponseEntity.status(HttpStatus.FOUND).body(postManagementService.removePost(deletePostRequest));
+        }
+        catch(PostDoesNotExistException error){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
         }
     }
 }
