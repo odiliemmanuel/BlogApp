@@ -144,6 +144,19 @@ public class PostManagementService {
         User user = userRepository.findUserById(deletePostRequest.getUserId());
         Post post = postRepository.findPostById(deletePostRequest.getPostId());
 
+        if(!userRepository.existsById(user.getId())){
+            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+        if(!postRepository.existsById(post.getId())){
+            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
+        }
+
+        DeletePostResponse deletePostResponse = new DeletePostResponse();
+        postRepository.delete(post);
+
+        deletePostResponse.setMessage("Heyy, " + user.getUsername() + " your post has been successfully removed");
+        return deletePostResponse;
 
     }
 
