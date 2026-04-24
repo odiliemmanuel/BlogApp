@@ -15,10 +15,24 @@ public class Post {
     private String id;
     private String title;
     private String content;
+    private String imageUrl;
     private String userId;
     private int comments = 0;
+
     private int likes = 0;
     private int views = 0;
     String message;
 
 }
+//
+//@Document
+//public class Post {
+//    @Id
+//    private String id;
+//    private String imageUrl;
+//    private String caption;
+//    private int likes;
+//    private boolean liked;
+//    private int views;
+//    private int commentsCount;
+//}

@@ -29,6 +29,7 @@ public class CommentManagementService {
     @Autowired
     UserRepository userRepository;
 
+
     public CommentResponse commentOnPost(CommentRequest commentRequest){
         Post post = postRepository.findPostById(commentRequest.getPostId());
         User user = userRepository.findUserById(commentRequest.getUserId());

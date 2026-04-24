@@ -1,6 +1,8 @@
 package org.blogapp.controllers;
 
 
+import org.blogapp.data.models.Post;
+import org.blogapp.data.repositories.PostRepository;
 import org.blogapp.dtos.requests.*;
 import org.blogapp.exceptions.PostDoesNotExistException;
 import org.blogapp.exceptions.PostWithIdAlreadyExistsException;
@@ -31,6 +33,9 @@ public class PostManagementController {
 
     @Autowired
     private ViewManagementService viewManagementService;
+
+    @Autowired
+    PostRepository postRepository;
 
 
     @PostMapping("/create/new/post")
@@ -123,5 +128,19 @@ public class PostManagementController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error.getMessage());
         }
 
+    }
+
+    @GetMapping("/posts/{id}")
+    public Post viewPost(@PathVariable String id) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setViews(post.getViews() + 1);
+        return postRepository.save(post);
+    }
+
+    @PostMapping("/posts/{id}/comment")
+    public Post comment(@PathVariable String id, @RequestBody String text) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.setComments(post.getComments() + 1);
+        return postRepository.save(post);
     }
 }
