@@ -37,10 +37,7 @@ public class PostManagementService {
     ViewRepository viewRepository;
 
 
-    private static int views = 0;
-    private static int comments = 0;
-    private static int likes = 0;
-//    private static List<Like> like;
+
 
     public NewPostResponse createNewPost(NewPostRequest newPostRequest){
 
@@ -80,7 +77,7 @@ public class PostManagementService {
         }
         else{
 
-            post.setViews(++views);
+            post.setViews(post.getViews() + 1);
             postRepository.save(post);
             views = 0;
             return PostMapper.mapViewPostResponseToPostAndUser(user, post);
@@ -109,12 +106,9 @@ public class PostManagementService {
 
 
         else{
-            post.setViews(++views);
-            post.setComments(++comments);
+            post.setViews(post.getViews() + 1);
+            post.setComments(post.getComments() + 1);
             postRepository.save(post);
-
-            views = 0;
-            comments = 0;
 
             return PostMapper.mapCommentResponseToUserAndPost(commentRequest, post, user);
         }
