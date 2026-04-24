@@ -122,23 +122,23 @@ public class PostManagementService {
     }
 
 
-    public LikeResponse likePost(LikeRequest likeRequest){
-        Post post = postRepository.findPostById(likeRequest.getPostId());
-        User user = userRepository.findUserById(likeRequest.getUserId());
-        Like like = PostMapper.mapLikeRequestToUserLikes(likeRequest);
-
-        likeRepository.save(like);
-
-        if(!userRepository.existsById(user.getId())){
-            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
-        }
-
-        if(!postRepository.existsById(post.getId())){
-            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
-        }
-
-
-    }
+//    public LikeResponse likePost(LikeRequest likeRequest){
+//        Post post = postRepository.findPostById(likeRequest.getPostId());
+//        User user = userRepository.findUserById(likeRequest.getUserId());
+//        Like like = PostMapper.mapLikeRequestToUserLikes(likeRequest);
+//
+//        likeRepository.save(like);
+//
+//        if(!userRepository.existsById(user.getId())){
+//            throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
+//        }
+//
+//        if(!postRepository.existsById(post.getId())){
+//            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
+//        }
+//
+//
+//    }
 
 
 }
