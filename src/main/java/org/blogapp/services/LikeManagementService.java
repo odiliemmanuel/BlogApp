@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class LikeManagementService {
@@ -30,33 +31,47 @@ public class LikeManagementService {
     LikeRepository likeRepository;
 
 
-    public LikeResponse likePost(LikeRequest likeRequest){
+    public LikeResponse likePost(LikeRequest likeRequest) {
         Post post = postRepository.findPostById(likeRequest.getPostId());
         User user = userRepository.findUserById(likeRequest.getUserId());
         Like like = PostMapper.mapLikeRequestToUserLikes(likeRequest);
-
+//
         likeRepository.save(like);
+
+        if (!postRepository.existsById(post.getId())) {
+            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
+        }
 
         if(!userRepository.existsById(user.getId())){
             throw new UserDoesNotExistException(Messages.USER_DOES_NOT_EXIST_EXCEPTION);
         }
 
-        if(!postRepository.existsById(post.getId())){
-            throw new PostDoesNotExistException(Messages.POST_DOES_NOT_EXIST_EXCEPTION);
+
+        Optional<Like> existingLike = likeRepository.findByUserIdAndPostId(likeRequest.getUserId(), likeRequest.getPostId());
+
+
+        if (existingLike.isPresent()) {
+
+            likeRepository.delete(existingLike.get());
+            return new LikeResponse("Unliked", false);
+        }
+        else {
+
+            like = new Like(likeRequest.getUserId(), likeRequest.getPostId());
+            likeRepository.save(like);
+            return new LikeResponse("Liked", true);
         }
 
-        if(likeRepository.existsById(like.getId())){
-            post.setLikes(post.getLikes() - 1);
-            postRepository.save(post);
-        }
-
-        else{
-            post.setLikes(post.getLikes() +1);
-            postRepository.save(post);
-            return PostMapper.mapUserLikeResponseToPost(post);
-        }
-
-        return null;
+//        if (likeRepository.existsById(like.getId())) {
+//            post.setLikes(post.getLikes() - 1);
+//            postRepository.save(post);
+//        } else {
+//            post.setLikes(post.getLikes() + 1);
+//            postRepository.save(post);
+//            return PostMapper.mapUserLikeResponseToPost(post);
+//        }
+//
+//        return null;
 
     }
 
